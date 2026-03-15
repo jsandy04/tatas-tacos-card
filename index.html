@@ -6,7 +6,41 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tata's Tacos · Chicago</title>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
+<!-- Google Analytics 4 — Tata's Tacos -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-N5R2XHP5HC"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'G-N5R2XHP5HC');
+
+  function track(e, p){ gtag('event', e, p || {}); }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var phone = document.querySelector('a[href^="tel:"]');
+    if(phone) phone.addEventListener('click', function(){ track('phone_tap'); });
+
+    var email = document.querySelector('a[href^="mailto:"]');
+    if(email) email.addEventListener('click', function(){ track('email_tap'); });
+
+    document.querySelectorAll('.btn-ghost, .btn-secondary').forEach(function(el){
+      el.addEventListener('click', function(){
+        var l = el.querySelector('.btn-label') || el;
+        track('cta_tap', { label: l.textContent.trim() });
+      });
+    });
+
+    var vcf = document.querySelector('.vcf-btn, [href$=".vcf"]');
+    if(vcf) vcf.addEventListener('click', function(){ track('contact_download'); });
+
+    document.querySelectorAll('.soc, .social-link').forEach(function(el){
+      el.addEventListener('click', function(){
+        track('social_tap', { platform: el.getAttribute('title') || el.getAttribute('aria-label') || '' });
+      });
+    });
+  });
+</script>
+ <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --orange:  #f59d69;
